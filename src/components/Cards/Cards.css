@@ -25,3 +25,23 @@
 .status-on {
   background-color: #00c500;
 }
+
+.percentage-wrapper p {
+  display: flex;
+  padding: 0.50rem 0.75rem;
+}
+
+.percentage-wrapper p:first-child {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.percentage-wrapper p:nth-child(even) {
+  background-color: #e2e2e2;
+}
+
+.percentage-wrapper p span {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
