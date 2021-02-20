@@ -24,4 +24,14 @@ router.get("/hourly-numbers/:id", (req, res) => {
     .catch((err) => res.sendStatus(500));
 });
 
+// not currently in use, potentially to post automated readings every hour
+router.post("/", (req, res) => {
+  const dataToPost = [req.machine_id, req.hourly, req.oee_reading];
+  const sqlQuery = `INSERT INTO oee_hourly_numbers (machine_id, hourly, oee_reading)
+                    VALUES ($1, $2, $3);`;
+  pool.query(sqlQuery, dataToPost)
+    .then(res.sendStatus(201))
+    .catch((err) => res.sendStatus(500));
+});
+
 module.exports = router;
