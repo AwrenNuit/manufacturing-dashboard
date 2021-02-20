@@ -1,0 +1,27 @@
+.card-wrapper {
+  border: 2px solid #000;
+  float: left; /*////////////////////////////////////////////////////////*/
+  height: 300px;
+  width: 300px;
+}
+
+.title-wrapper {
+  background-color: #07457e;
+  color: #fff;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.status-wrapper {
+  background-color: #ff0000;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 auto;
+  text-align: center;
+  width: 50%;
+}
+
+.status-on {
+  background-color: #00c500;
+}
