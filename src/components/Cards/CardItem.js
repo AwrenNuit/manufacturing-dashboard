@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import BarGraph from "../Graphs/BarGraph";
 import "./Cards.css";
 
 export default function CardItem({
@@ -7,6 +10,26 @@ export default function CardItem({
   performancePercentage,
   qualityPercentage,
 }) {
+  const [graphData, setGraphData] = useState([]);
+  const [graphLabelList, setGraphLabelList] = useState([]);
+
+  useEffect(() => {
+    axios.get(`api/oee/hourly-numbers/${machine}`)
+      .then((res) => prepGraphData(res.data))
+      .catch((err) => console.log(`ERROR: oee hourly GET failed: ${err}`));
+  }, []);
+
+  const prepGraphData = (res) => {
+    let data = [];
+    let labelList = [];
+    for (let hour of res) {
+      labelList.push(hour.hourly);
+      data.push(hour.oee_reading * 100);
+    }
+    setGraphData(data);
+    setGraphLabelList(labelList);
+  };
+
   return (
     <div className="card-wrapper">
       <div className="title-wrapper">
@@ -17,7 +40,7 @@ export default function CardItem({
       </div>
       <div className="percentage-wrapper">
         <p>
-          OEE: <span>{((availabilityPercentage * performancePercentage * qualityPercentage) * 100).toFixed(2)}%</span>
+          OEE: <span>{(availabilityPercentage * performancePercentage * qualityPercentage * 100).toFixed(2)}%</span>
         </p>
         <p>
           Availability: <span>{(availabilityPercentage * 100).toFixed(2)}%</span>
@@ -29,7 +52,7 @@ export default function CardItem({
           Quality: <span>{(qualityPercentage * 100).toFixed(2)}%</span>
         </p>
       </div>
-      <div className="graph-wrapper">{/* GRAPH GOES HERE */}</div>
+      <BarGraph graphData={graphData} graphLabelList={graphLabelList} />
     </div>
   );
 }
