@@ -3,14 +3,14 @@ import "./Cards.css";
 export default function CardItem({
   availabilityPercentage,
   isRunning,
+  machine,
   performancePercentage,
   qualityPercentage,
-  title,
 }) {
   return (
     <div className="card-wrapper">
       <div className="title-wrapper">
-        <h3>{title}</h3>
+        <h2>{machine}</h2>
       </div>
       <div className={`status-wrapper ${isRunning ? "status-on" : ""}`}>
         <h3>{isRunning ? "Running" : "Not Running"}</h3>
